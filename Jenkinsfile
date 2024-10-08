@@ -3,6 +3,12 @@
 pipeline {
   agent none
   stages {
+    stage('Check Docker') {
+    agent any
+       steps {
+        sh 'docker --version'
+       }
+    }
     stage('Maven Install') {
       agent {
         docker {
