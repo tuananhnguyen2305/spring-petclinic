@@ -4,13 +4,18 @@ LABEL maintainer="anhnt@falcongames.com"
 
 USER root
 
-EXPOSE 8080 50000
+# Install Docker inside the Jenkins container
+RUN apt-get update && \
+    apt-get install -y apt-transport-https ca-certificates curl gnupg2 software-properties-common && \
+    curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add - && \
+    add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debian $(lsb_release -cs) stable" && \
+    apt-get update && \
+    apt-get install -y docker-ce-cli
+
+# Expose ports
+EXPOSE 8085 50000
 
 COPY /target/spring-petclinic-1.5.1.jar /home/spring-petclinic-1.5.1.jar
 
 CMD ["java","-jar","spring-petclinic-1.5.1.jar"]
 
-RUN curl -fsSLO https://get.docker.com/builds/Linux/x86_64/docker-17.04.0-ce.tgz \
-  && tar xzvf docker-17.04.0-ce.tgz \
-  && mv docker/docker /usr/local/bin \
-  && rm -r docker docker-17.04.0-ce.tgz
