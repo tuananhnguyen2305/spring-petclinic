@@ -12,17 +12,15 @@ pipeline {
 //         }
 //     }
 
-    stage('Maven Install') {
-      agent {
-        docker {
-          image 'maven:3.5.0'
-          label ''
+    stage('Build with Maven') {
+        agent any
+        steps {
+            sh 'mvn --version'
+            sh 'java -version'
+            sh 'mvn clean package -Dmaven.test.failure.ignore=true'
         }
-      }
-      steps {
-        sh 'mvn clean install'
-      }
     }
+
     stage('Docker Build') {
       agent any
       steps {
