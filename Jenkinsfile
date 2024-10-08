@@ -4,13 +4,13 @@ pipeline {
   agent none
   stages {
 
-    stage('Check Docker') {
-        agent any
-        steps {
-            git 'https://github.com/tuananhnguyen2305/spring-petclinic.git'
-            sh 'docker --version'
-        }
-    }
+//     stage('Check Docker') {
+//         agent any
+//         steps {
+//             git 'https://github.com/tuananhnguyen2305/spring-petclinic.git'
+//             sh 'docker --version'
+//         }
+//     }
 
     stage('Maven Install') {
       agent {
