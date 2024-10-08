@@ -7,6 +7,7 @@ pipeline {
       agent {
         docker {
           image 'maven:3.5.0'
+          label ''
         }
       }
       steps {
